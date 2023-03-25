@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.svg'
+import './App.css'
 
 function App() {
+    const name = "Drilon"
+
+    const handleNameChange = () => {
+        const names = ["Dave", "Bob", "Earl", "Kevin"]
+        const int = Math.floor(Math.random() * 4)
+
+        return names[int]
+    }
+
     return (
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>
-                    Edit <code>src/App.js</code> and save to reload.
+                    Hello {name}!
                 </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
+
+                <p>Hello {handleNameChange()}!</p>
             </header>
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
