@@ -1,40 +1,77 @@
 import React from 'react'
 import { useState } from 'react'
+import { FaTrashAlt } from "react-icons/fa"
 
 const Content = () => {
-    const [name, setName] = useState("Dave")
-    const [count, setCount] = useState(0)
+    const [items, setItems] = useState([
+        {
+            id: 1,
+            checked: true,
+            item: "One half pound bag of Cocoa Covered Almonds Unsalted"
+        },
+        {
+            id: 2,
+            checked: false,
+            item: "Item 2"
+        },
+        {
+            id: 3,
+            checked: false,
+            item: "Item 3"
+        }
+    ])
 
-    const handleNameChange = () => {
-        const names = ["Dave", "Bob", "Earl", "Kevin"]
-        const int = Math.floor(Math.random() * 4)
+    const handleCheck = (id) => {
+        const listItems = items.map(
+            (item) => item.id === id 
+                ? { ...item, checked: !item.checked } 
+                : item
+        )
 
-        // return names[int]
-        setName(names[int])
+        setItems(listItems)
+        localStorage.setItem("shoppinglist", JSON.stringify(listItems))
     }
 
-    const handleClick = () => {
-        setCount(count + 1)
-        console.log(count)
+    const handleDelete = (id) => {
+        const listItems = items.filter((item) => item.id !== id)
+
+        setItems(listItems)
+        localStorage.setItem("shoppinglist", JSON.stringify(listItems))
     }
 
-    const handleClick2 = (name) => {
-        console.log(`${name} has clicked the button`)
-    }
-
-    const handleClick3 = (e) => {
-        console.log(e.target.innerText)
-    }
-    
     return (
         <main>
-            <p onDoubleClick={handleClick}>Hello {name}!</p>
+            {items.length ? (
+                <ul>
+                    {items.map((item) => (
+                        <li className="item" key={item.id}>
+                            <input 
+                                type="checkbox"
+                                checked={item.checked}
+                                onChange={() => handleCheck(item.id)}
+                            />
 
-            <button onClick={handleNameChange}>Change Name</button>
-            <button onClick={() => handleClick2(handleNameChange())}>Click Button</button>
-            <button onClick={(e) => handleClick3(e)}>Click Button</button>
-            <button onClick={handleClick}>Click Button Count</button>
-        </main> 
+                            <label 
+                                htmlFor=""
+                                onDoubleClick={() => handleCheck(item.id)}
+                                style={(item.checked) 
+                                    ? { textDecoration: "line-through" } 
+                                    : null
+                                }
+                            >{item.item}</label>
+
+                            <FaTrashAlt 
+                                role="button" 
+                                tabIndex="0"
+                                onClick={() => handleDelete(item.id)}
+                            ></FaTrashAlt>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p style={{ marginTop: "0rem" }}>No items found!</p>
+            )}
+        </main>
     )
 }
 
