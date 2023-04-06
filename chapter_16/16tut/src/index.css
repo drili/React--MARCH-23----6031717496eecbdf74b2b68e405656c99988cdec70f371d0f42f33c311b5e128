@@ -223,6 +223,14 @@ body {
     cursor: pointer;
 }
 
+.PostPage .editButton {
+    background-color: darkblue !important;
+}
+
+.PostPage a {
+    padding-right: 20px;
+}
+
 .statusMsg {
     margin-top: 2rem;
 }
