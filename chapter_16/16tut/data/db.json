@@ -26,9 +26,21 @@
     },
     {
       "id": 5,
-      "title": "A New Post",
-      "datetime": "April 06, 2023 10:13:26 PM",
-      "body": "Hello everybody test"
+      "title": "Another Post",
+      "datetime": "April 08, 2023 3:29:47 PM",
+      "body": "Hello this is another post"
+    },
+    {
+      "id": 6,
+      "title": "Another Post 3",
+      "datetime": "April 08, 2023 3:30:35 PM",
+      "body": "alkwjd lkawjd lkawjdlk ajwdkl ajwkd jawked a\n"
+    },
+    {
+      "id": 7,
+      "title": "New Post Again Edited",
+      "datetime": "April 08, 2023 3:43:58 PM",
+      "body": "lkajwdlkawjd aw"
     }
   ]
 }
