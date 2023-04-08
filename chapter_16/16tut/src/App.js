@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-route
 import { useState, useEffect } from "react"
 import { format } from "date-fns"
 import api from "./api/posts"
+import useWindowSize from './hooks/useWindowSize'
+import useAxiosFetch from './hooks/useAxiosFetch'
 
 import Header from "./components/Header"
 import Nav from "./components/Nav"
@@ -23,25 +25,33 @@ const App = () => {
     const [editTitle, setEditTitle] = useState("")
     const [editBody, setEditBody] = useState("")
     const navigate = useNavigate()
+    const { width } = useWindowSize()
+
+    const { data, fetchError, isLoading } = useAxiosFetch('http://localhost:3500/posts')
 
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await api.get("/posts")
-                setPosts(response.data)
-            } catch (error) {
-                if (error.response) {
-                    console.log(error.response.data)
-                    console.log(error.response.status)
-                    console.log(error.response.headers)
-                } else {
-                    console.log(`Error: ${error.message}`)
-                }
-            }
-        }
+        setPosts(data)
+    }, [data])
 
-        fetchPosts()
-    }, [])
+    // *** Old method fetching data
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         try {
+    //             const response = await api.get("/posts")
+    //             setPosts(response.data)
+    //         } catch (error) {
+    //             if (error.response) {
+    //                 console.log(error.response.data)
+    //                 console.log(error.response.status)
+    //                 console.log(error.response.headers)
+    //             } else {
+    //                 console.log(`Error: ${error.message}`)
+    //             }
+    //         }
+    //     }
+
+    //     fetchPosts()
+    // }, [])
 
     useEffect(() => {
         const filteredResults = posts.filter(post => 
@@ -102,11 +112,17 @@ const App = () => {
 
     return (
         <div className='App'>
-            <Header title="React JS Blog"></Header>
+            <Header title="React JS Blog" width={width}></Header>
             <Nav search={search} setSearch={setSearch}></Nav>
 
             <Routes>
-                <Route exact path="/" element={<Home posts={searchResults}></Home>}>
+                <Route exact path="/" element={
+                    <Home 
+                        posts={searchResults}
+                        fetchError={fetchError}
+                        isLoading={isLoading}
+                    >
+                    </Home>}>
                 </Route>
 
                 <Route exact path="/post" element={
