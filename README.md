@@ -25,3 +25,6 @@ http://localhost:3500/items/:id
 ### Collection of React Hooks
 
 - https://nikgraf.github.io/react-hooks/
+
+### "Easy-Peasy Redux"
+```npm i easy-peasy```
