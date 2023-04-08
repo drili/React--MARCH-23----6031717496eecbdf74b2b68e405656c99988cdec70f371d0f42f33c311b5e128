@@ -28,3 +28,8 @@ http://localhost:3500/items/:id
 
 ### "Easy-Peasy Redux"
 ```npm i easy-peasy```
+
+### Deployment
+
+1. Netfily
+2. Github Pages
